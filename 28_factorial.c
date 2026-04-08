@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-long long int fact(int n)
+int fact(int n)
 {
     if (n < 1)
         return 1;
@@ -13,7 +13,7 @@ int main()
     printf("Enter n & r: ");
     scanf("%d %d", &n, &r);
 
-    printf("nCr = %lld\n", fact(n) / (fact(r) * fact(n - r)));
+    printf("nCr = %d\n", fact(n) / (fact(r) * fact(n - r)));
 
     return 0;
 }
