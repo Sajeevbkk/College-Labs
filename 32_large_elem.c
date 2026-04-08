@@ -17,7 +17,8 @@ int main()
             scanf("%d", &arr[i][j]);
 
     for (int i=0; i<row; i++)
-        printf("Largest element of row %d = %d\n", i, large_elem(row, arr[i]));
+        printf("Largest element of row %d = %d\n", i,
+            large_elem(col, arr[i]));
 
     return 0;
 }
