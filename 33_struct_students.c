@@ -23,10 +23,9 @@ int main()
     struct Student students[limit];
     read_data(limit, students);
 
-    // Sort data in ascending order
+    // Sort data in descending order
     sort_data(limit, students);
 
-    // Show data in descending order
     print_data(limit, students);
 
     return 0;
