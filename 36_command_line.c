@@ -6,13 +6,24 @@ line argument. */
 
 int main(int argc, char **argv)
 {
-    float lar1 = atof(argv[1]), lar2 = lar1;
-    for (int i = 2; i < argc; i++)
+    float lar1 = atof(argv[1]), lar2 = atof(argv[2]);
+    if (lar1 < lar2)
     {
-        if (lar1 < atof(argv[i]))
+        float temp = lar1;
+        lar1 = lar2;
+        lar2 = temp;
+    }
+    for (int i = 3; i < argc; i++)
+    {
+        float temp = atof(argv[i]);
+        if (lar1 < temp)
         {
+
             lar2 = lar1;
-            lar1 = atof(argv[i]);
+            lar1 =temp;
+        } else if (temp > lar2 && temp != lar1)
+        {
+            lar2 = temp;
         }
     }
     printf("2nd largest number = %.2f\n", lar2);
