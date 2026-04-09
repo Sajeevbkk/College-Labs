@@ -7,6 +7,7 @@ struct Student
     char name[40];
     int rollno;
     int marks[4];
+    int total;
 };
 
 void read_data(int limit, struct Student *arr);
@@ -35,58 +36,53 @@ void read_data(int limit, struct Student *arr)
 {
     for (int i=0; i<limit; i++)
     {
-        while (getchar() != '\n');
-        printf("*** Enter details of student %d ***\n", i+1);
-        printf("Name: ");
-        fgets(arr[i].name, 40, stdin);
+        printf("\nStudent %d\n", i+1);
         printf("Rollno: ");
         scanf("%d", &arr[i].rollno);
+        printf("Name: ");
+        while (getchar() != '\n'); // to skip charcters
+        fgets(arr[i].name, 40, stdin);
+        printf("Enter 4 mark: ");
+        arr[i].total = 0;
         for (int j=0; j<4; j++)
         {
-            printf("Enter mark of subject %d: ", j+1);
             scanf("%d", &arr[i].marks[j]);
+            arr[i].total += arr[i].marks[j];
         }
-        printf("\n\t-------------------------\n\n");
+        printf("\n");
     }
 }
 
 void sort_data(int limit, struct Student *arr)
 {
-    for (int i = 0; i < limit-1; i++)
-        for (int j = 0; j < limit - i - 1; j++)
+    while (limit>1)
+    {
+        for (int i=1; i<limit; i++)
         {
-            int total1 = 0, total2 = 0;
-
-            for (int k = 0; k < 4; k++)
+            if (arr[i].total>arr[i-1].total)
             {
-                total1 += arr[j].marks[k];
-                total2 += arr[j+1].marks[k];
-            }
-
-            if (total1 < total2)
-            {
-                struct Student temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
+                struct Student temp = arr[i];
+                arr[i] = arr[i-1];
+                arr[i-1] = temp;
             }
         }
+        limit--;
+    }
 }
 
 void print_data(int limit, struct Student *arr)
 {
-    printf("Student list (sorted by marks):\n");
-    for (int i=limit-1; i>=0; i--)
+    printf("--- Student Details (Sorted by Total Marks Descending) ---\n\n");
+    for (int i=0; i<limit; i++)
     {
-        printf("Student %d:\n", i+1);
-        printf("Name: %s\n", arr[i].name);
         printf("Roll no: %d\n", arr[i].rollno);
-        printf("Marks: %d\n", arr[i].marks[0]);
-        printf("Marks: %d\n", arr[i].marks[1]);
-        printf("Marks: %d\n", arr[i].marks[2]);
-        printf("Marks: %d\n", arr[i].marks[3]);
-        int total_mark = 0;
-        for (int j=0; j<4; j++) total_mark += arr[i].marks[j];
-        printf("Total marks: %d\n", total_mark);
-        printf("\n\t-----------------\n");
+        printf("Name: %s", arr[i].name);
+        printf("Marks: %d %d %d %d\n",
+            arr[i].marks[0],
+            arr[i].marks[1],
+            arr[i].marks[2],
+            arr[i].marks[3]);
+        printf("Total marks: %d", arr[i].total);
+        printf("\n\n");
     }
 }
